@@ -4,7 +4,6 @@ import {
   Container,
   Segment,
   Item,
-  Dropdown,
   Divider,
   Button,
   Message,
@@ -17,17 +16,6 @@ import { TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery } from "react-query";
 import mindImg from '../../images/mind.svg';
-
-import {
-  CATEGORIES,
-  NUM_OF_QUESTIONS,
-  DIFFICULTY,
-  QUESTIONS_TYPE,
-  COUNTDOWN_TIME,
-} from '../../constants';
-import { shuffle } from '../../utils';
-
-import Offline from '../Offline';
 import { useEffect } from 'react';
 import { VisibilityOff } from '@mui/icons-material';
 import { useAlert } from '../../context/NotificationProvider';
@@ -76,18 +64,14 @@ const textboxStyles = {
 }
 
 const Main = ({ startQuiz }) => {
-  const [category, setCategory] = useState('0');
-  const [numOfQuestions, setNumOfQuestions] = useState(5);
-  const [difficulty, setDifficulty] = useState('0');
-  const [questionsType, setQuestionsType] = useState('0');
   const [countdownTime, setCountdownTime] = useState({
     hours: 0,
-    minutes: 1500,
+    minutes: 3500,
     seconds: 0,
   });
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
-  const [offline, setOffline] = useState(false);
+  // const [offline, setOffline] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,18 +98,6 @@ const Main = ({ startQuiz }) => {
       showPassword: !values.showPassword,
     });
   };
-
-  let allFieldsSelected = false;
-  if (
-    category &&
-    numOfQuestions &&
-    difficulty &&
-    questionsType &&
-    (countdownTime.hours || countdownTime.minutes || countdownTime.seconds)
-  ) {
-    allFieldsSelected = true;
-  }
-
 
 
   const { showNotification } = useAlert();
@@ -154,6 +126,11 @@ const Main = ({ startQuiz }) => {
       setError("Success");
       console.log(data);
       console.log(questions);
+      setCountdownTime({
+        hours: 0,
+        minutes: 3500,
+        seconds: 0,
+      })
       if (data.data.examTaken === true) {
         setError("You have taken this exam already!");
       } else {
@@ -171,7 +148,7 @@ const Main = ({ startQuiz }) => {
   };
 
   
-  if (offline) return <Offline />;
+  // if (offline) return <Offline />;
 
   return (
     <Container>
@@ -302,7 +279,7 @@ const Main = ({ startQuiz }) => {
                     labelPosition="left"
                     content={processing ? 'Processing...' : 'Begin Exam'}
                     onClick={handleSubmit(onBeginExam)}
-                    disabled={!allFieldsSelected || processing}
+                    disabled={processing || isLoading}
                   />
                 </Item.Extra>
               </Item.Content>

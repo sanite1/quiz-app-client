@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container, Menu } from 'semantic-ui-react';
-
-import Stats from './Stats';
-import QNA from './QNA';
+import { Container, } from 'semantic-ui-react';
 import { Box, Typography } from '@mui/material';
-import { Navigate } from 'react-router-dom';
 
 const Result = ({
   message, message2
 }) => {
-  const [activeTab, setActiveTab] = useState('Stats');
 
-  const handleTabClick = (e, { name }) => {
-    setActiveTab(name);
-  };
 
   return (
     <Container>

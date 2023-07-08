@@ -16,7 +16,6 @@ import he from 'he';
 import Countdown from '../Countdown';
 import { getLetter } from '../../utils';
 import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { useAlert } from '../../context/NotificationProvider';
 import { calculateResult, storeAnswer } from '../../services/authService';
@@ -24,10 +23,10 @@ import { calculateResult, storeAnswer } from '../../services/authService';
 const Quiz = ({ data, countdownTime, endQuiz }) => {
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
+  // const [correctAnswers, setCorrectAnswers] = useState(0);
   const [userSlectedAns, setUserSlectedAns] = useState(null);
-  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
-  const [timeTaken, setTimeTaken] = useState(null);
+  // const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  const [, setTimeTaken] = useState(null);
 
   const handleItemClick = (e, { name }) => {
     console.log(name);
@@ -35,7 +34,7 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
   };
 
   const { showNotification } = useAlert();
-  const { mutate, isLoading } = useMutation(storeAnswer, {
+  const { mutate,  } = useMutation(storeAnswer, {
     onError: (error) => {
       showNotification?.(error.response.data.message, { type: "error" });
     },
@@ -43,7 +42,7 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
       console.log(data);
     },
   });
-  const { mutate: calculate, isLoading: calculateLoading } = useMutation(calculateResult, {
+  const { mutate: calculate,  } = useMutation(calculateResult, {
     onError: (error) => {
       showNotification?.(error.response.data.message, { type: "error" });
     },

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Header, Button } from 'semantic-ui-react';
 
-import { Box, CircularProgress, Grid, IconButton, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation, useQuery } from "react-query";
-import { calculateScore, calculateGrade, timeConverter } from '../../utils';
-import { useState } from 'react';
+import { useMutation,  } from "react-query";
+// import { calculateScore, calculateGrade, timeConverter } from '../../utils';
+// import { useState } from 'react';
 import { useEffect } from 'react';
 import { createQuestion } from '../../services/authService';
 import { useAlert } from '../../context/NotificationProvider';
@@ -57,14 +57,13 @@ const textboxStyles = {
   },
 }
 
-const Stats = ({}) => {
+const Stats = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   
   const { showNotification } = useAlert();
-  const [processing, setProcessing] = useState(false);
 
   const schema = yup.object().shape({
     query: yup.string().required("Query Is Required"),
@@ -81,27 +80,21 @@ const Stats = ({}) => {
   const { handleSubmit, trigger, control } = useForm({
     resolver: yupResolver(schema),
   });
-  const [values, setValues] = useState({
-    vertical: "bottom",
-    horizontal: "center",
-    open: false,
-    showPassword: false,
-  });
 
   const { mutate, isLoading } = useMutation(createQuestion, {
     onError: (error) => {
       showNotification?.(error.response.data.message, { type: "error" });
-      setProcessing(false);
+      // setProcessing(false);
     },
     onSuccess: (data) => {
       showNotification?.(data.message, { type: "success" });
-      setProcessing(false);
+      // setProcessing(false);
       console.log(data);
       // console.log(questions);
     },
   });
   const onSubmit = (payload) => {
-    setProcessing(true);
+    // setProcessing(true);
     mutate(payload);
   };
 

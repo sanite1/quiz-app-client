@@ -20,6 +20,7 @@ import { useEffect } from 'react';
 import { VisibilityOff } from '@mui/icons-material';
 import { useAlert } from '../../context/NotificationProvider';
 import { fetchQuestions, login } from '../../services/authService';
+import { setToken } from '../../utils/auth';
 
 const textboxStyles = {
   marginBottom: "30px",
@@ -66,7 +67,7 @@ const textboxStyles = {
 const Main = ({ startQuiz }) => {
   const [countdownTime, setCountdownTime] = useState({
     hours: 0,
-    minutes: 3500,
+    minutes: 3600,
     seconds: 0,
   });
   const [processing, setProcessing] = useState(false);
@@ -123,23 +124,36 @@ const Main = ({ startQuiz }) => {
     },
     onSuccess: (data) => {
       setProcessing(false);
-      setError("Success");
-      console.log(data);
-      console.log(questions);
+      // setError("Success");
       setCountdownTime({
         hours: 0,
         minutes: 3500,
         seconds: 0,
-      })
-      if (data.data.examTaken === true) {
-        setError("You have taken this exam already!");
+      });
+    
+      const storedToken = localStorage.getItem("token");
+      const storedCurrentNumber = localStorage.getItem("currentNumber");
+      const currentNumber = storedCurrentNumber ? parseInt(storedCurrentNumber, 10) : 0;
+    
+      if (storedToken) {
+        if (currentNumber === questions.length) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("currentNumber");
+          setError("You have taken this exam already!");
+        } else {
+          startQuiz([questions, data], countdownTime.hours + countdownTime.minutes + countdownTime.seconds);
+        }
       } else {
-        startQuiz(
-          [questions, data],
-          countdownTime.hours + countdownTime.minutes + countdownTime.seconds
-        );
+        if (data.data.examTaken === true) {
+          setError("You have taken this exam already!");
+        } else {
+          setToken(data?.token);
+          localStorage.setItem("currentNumber", "0");
+          startQuiz([questions, data], countdownTime.hours + countdownTime.minutes + countdownTime.seconds);
+        }
       }
     },
+    
   });
   const onBeginExam = (payload) => {
     

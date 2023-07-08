@@ -22,10 +22,10 @@ import { calculateResult, storeAnswer } from '../../services/authService';
 
 const Quiz = ({ data, countdownTime, endQuiz }) => {
 
-  const [questionIndex, setQuestionIndex] = useState(0);
-  // const [correctAnswers, setCorrectAnswers] = useState(0);
+  const storedCurrentNumber = localStorage.getItem('currentNumber');
+
+  const [questionIndex, setQuestionIndex] = useState(parseInt(storedCurrentNumber, 10));
   const [userSlectedAns, setUserSlectedAns] = useState(null);
-  // const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   const [, setTimeTaken] = useState(null);
 
   const handleItemClick = (e, { name }) => {
@@ -68,6 +68,9 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
         username: data[1].data.email,
       }
       calculate(payload2)
+      setQuestionIndex(questionIndex + 1);
+      const updatedCurrentNumber = questionIndex + 1;
+      localStorage.setItem('currentNumber', updatedCurrentNumber.toString());
       return endQuiz({
         message: "You Have Completed The Exam",
         message2: "Your Score Has Been Recorded!"
@@ -75,6 +78,9 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
     }
 
     setQuestionIndex(questionIndex + 1);
+    const updatedCurrentNumber = questionIndex + 1;
+    localStorage.setItem('currentNumber', updatedCurrentNumber.toString());
+  
     setUserSlectedAns(null);
   };
 
@@ -85,6 +91,9 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
       username: data[1].data.email,
     }
     calculate(payload2)
+    setQuestionIndex(questionIndex + 1);
+    const updatedCurrentNumber = questionIndex + 1;
+    localStorage.setItem('currentNumber', updatedCurrentNumber.toString());
     return endQuiz({
       message: "You Have Elapsed Your Time.",
       message2: "Your Score Has Been Recorded!"

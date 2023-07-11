@@ -279,9 +279,8 @@ const Main = ({ startQuiz }) => {
                 
                 <Typography>
                   Note*:<br />
-                  - Once you begin the exam you must not close the page else it will not be recorded.<br />
+                  - Feel free to go through the guidelines while taking the exam<br />
                   - You only get one attempt.<br />
-                  - When the timer runs out, it automatically submits so no need to panic.<br />
                   - Make sure you pay close attention to each query.<br />
                 </Typography>
                 <Divider />

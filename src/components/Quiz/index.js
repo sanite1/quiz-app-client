@@ -13,20 +13,20 @@ import {
 } from 'semantic-ui-react';
 import he from 'he';
 
-import Countdown from '../Countdown';
+// import Countdown from '../Countdown';
 import { getLetter } from '../../utils';
 import { Box, Typography } from '@mui/material';
 import { useMutation } from 'react-query';
 import { useAlert } from '../../context/NotificationProvider';
 import { calculateResult, storeAnswer } from '../../services/authService';
 
-const Quiz = ({ data, countdownTime, endQuiz }) => {
+const Quiz = ({ data, endQuiz }) => {
 
   const storedCurrentNumber = localStorage.getItem('currentNumber');
 
   const [questionIndex, setQuestionIndex] = useState(parseInt(storedCurrentNumber, 10));
   const [userSlectedAns, setUserSlectedAns] = useState(null);
-  const [, setTimeTaken] = useState(null);
+  // const [, setTimeTaken] = useState(null);
 
   const handleItemClick = (e, { name }) => {
     console.log(name);
@@ -204,7 +204,7 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
 
 Quiz.propTypes = {
   data: PropTypes.array.isRequired,
-  countdownTime: PropTypes.number.isRequired,
+  // countdownTime: PropTypes.number.isRequired,
   endQuiz: PropTypes.func.isRequired
 };
 

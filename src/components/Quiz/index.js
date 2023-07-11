@@ -151,10 +151,17 @@ const Quiz = ({ data, endQuiz }) => {
                       <Typography variant="h5" sx={{color: "black !important"}}>
                         {`${data[0][questionIndex].resultText}.`}
                       </Typography>
-                      <Typography variant="caption" sx={{color: "black !important"}}>
-                      {data[0][questionIndex].resultLink.slice(0, 20)}
-                      {data[0][questionIndex].resultLink.length > 8 && "..."}
-                        {/* {`${data[0][questionIndex].resultLink}.`} */}
+                      <Typography variant="caption" sx={{color: "black !important", 
+                        wordWrap: "break-word",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        hyphens: "auto",
+                        wordBreak: "break-all",
+                        width: "70%",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 1,
+                        WebkitBoxOrient: "vertical",}}>
+                        {`${data[0][questionIndex].resultLink}.`}
                       </Typography>
                     </Box>
                   </a>

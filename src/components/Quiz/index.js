@@ -152,7 +152,9 @@ const Quiz = ({ data, endQuiz }) => {
                         {`${data[0][questionIndex].resultText}.`}
                       </Typography>
                       <Typography variant="caption" sx={{color: "black !important"}}>
-                        {`${data[0][questionIndex].resultLink}.`}
+                      {data[0][questionIndex].resultLink.slice(0, 20)}
+                      {data[0][questionIndex].resultLink.length > 8 && "..."}
+                        {/* {`${data[0][questionIndex].resultLink}.`} */}
                       </Typography>
                     </Box>
                   </a>

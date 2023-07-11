@@ -84,21 +84,21 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
     setUserSlectedAns(null);
   };
 
-  const timeOver =  timeTaken => {
+  // const timeOver =  timeTaken => {
     
-    const payload2 = {
-      userId: data[1].data._id,
-      username: data[1].data.email,
-    }
-    calculate(payload2)
-    setQuestionIndex(questionIndex + 1);
-    const updatedCurrentNumber = questionIndex + 1;
-    localStorage.setItem('currentNumber', updatedCurrentNumber.toString());
-    return endQuiz({
-      message: "You Have Elapsed Your Time.",
-      message2: "Your Score Has Been Recorded!"
-    });
-  };
+  //   const payload2 = {
+  //     userId: data[1].data._id,
+  //     username: data[1].data.email,
+  //   }
+  //   calculate(payload2)
+  //   setQuestionIndex(questionIndex + 1);
+  //   const updatedCurrentNumber = questionIndex + 1;
+  //   localStorage.setItem('currentNumber', updatedCurrentNumber.toString());
+  //   return endQuiz({
+  //     message: "You Have Elapsed Your Time.",
+  //     message2: "Your Score Has Been Recorded!"
+  //   });
+  // };
 
   const getBoldText = (text) => {
     return <Typography sx={{ fontWeight: 700, display: "inline", color: "black"}}>{text}</Typography>
@@ -123,11 +123,11 @@ const Quiz = ({ data, countdownTime, endQuiz }) => {
                       {`Question No.${questionIndex + 1} of ${data[0].length}`}
                     </Header.Content>
                   </Header>
-                  <Countdown as="h4"
+                  {/* <Countdown as="h4"
                     countdownTime={countdownTime}
                     timeOver={timeOver}
                     setTimeTaken={setTimeTaken}
-                  />
+                  /> */}
                 </Item.Extra>
                 <br />
                 <Item.Meta>
